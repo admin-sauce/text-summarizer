@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Text Summarizer</h1>
+        <form id="summarize-form">
+            <div class="input-area">
+                <textarea id="input-text" name="input_text" placeholder="Enter your text here..."></textarea>
+            </div>
+            <div class="options">
+                <label for="max-length">Max Length:</label>
+                <input type="number" id="max-length" name="max_length" value="100">
+                <button type="submit">Summarize</button>
+            </div>
+        </form>
+        <div class="output-area">
+            <h2>Summarized Text:</h2>
+            <p id="output-text"></p>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('summarize-form');
+        const outputText = document.getElementById('output-text');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const response = await fetch('/summarize', {
+                method: 'POST',
+                body: formData
+            });
+
+            const summary = await response.text();
+            outputText.textContent = summary;
+        });
+    </script>
+</body>
+</html>
