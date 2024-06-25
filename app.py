@@ -4,7 +4,7 @@ from transformers import pipeline
 
 @st.cache_resource
 def load_model():
-    model_name = "admin-sauce/t5-summerizer"
+    model_name = "admin-sauce/t5-summarizer"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     summarizer = pipeline("summarization", model=model, tokenizer=tokenizer)
